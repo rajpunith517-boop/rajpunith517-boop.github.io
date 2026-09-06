@@ -6,89 +6,144 @@
 <meta name="theme-color" content="#ffffff">
 <title>Holy Mount Church — Tamil Christian Songs</title>
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#fff;color:#333;font-family:Arial,"Noto Sans Tamil","Nirmala UI",sans-serif}
-body{font-size:17px}
-.header{height:100px;border-bottom:1px solid #ddd;background:#fff;display:flex;align-items:center;position:sticky;top:0;z-index:10}
-.header-inner{width:min(1100px,100%);margin:auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:30px;font-weight:800;letter-spacing:-1.3px;color:#292929}
-.menu{width:30px;height:24px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
-.menu span{height:3px;background:#333;border-radius:2px;width:100%}
-.container{width:min(1100px,100%);margin:auto;padding:46px 28px 120px}
-.topline{height:1px;background:#ddd;margin-bottom:48px}
-.search{border:1px solid #ddd;border-radius:3px;height:50px;width:100%;padding:0 15px;font-size:17px;outline:none;margin-bottom:38px}
-.song-list{max-width:850px}
-.song{border-top:1px solid #e2e2e2;padding:34px 0 20px}
-.song:first-child{border-top:0}
-.title{font-family:"Noto Sans Tamil","Nirmala UI",Arial,sans-serif;font-size:25px;line-height:1.65;font-weight:500;margin:0;color:#363636}
-.roman{font-size:20px;line-height:1.65;margin-top:2px;color:#333}
-.lyrics{margin-top:20px;font-size:23px;line-height:1.9}
-.line{margin:0 0 1px}
-.spacer{height:26px}
-.hidden{display:none}
-.empty{padding:50px 0;text-align:center;color:#777}
-.up{position:fixed;right:18px;bottom:22px;width:58px;height:58px;border-radius:50%;border:0;background:#21a64a;color:#fff;font-size:31px;box-shadow:0 4px 12px #0002;z-index:30;cursor:pointer}
-.cookie{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #ddd;box-shadow:0 -2px 8px #0001;padding:20px 70px 20px 25px;text-align:center;font-size:19px;line-height:1.5;z-index:25}
-.cookie a{color:#4b934e}
-.close{margin-left:18px;background:#22a54a;color:white;border:0;border-radius:4px;padding:8px 20px;font-size:16px;cursor:pointer}
-@media(max-width:650px){
-.header{height:100px}
-.header-inner{padding:0 35px}
-.logo{font-size:29px;max-width:470px}
-.container{padding:47px 35px 120px}
-.topline{margin-bottom:47px}
-.title{font-size:24px;line-height:1.55}
-.roman{font-size:19px;line-height:1.55}
-.lyrics{font-size:22px;line-height:1.75}
-.song{padding:30px 0 18px}
-.cookie{padding:16px 42px 16px 22px;font-size:18px}
-.close{display:block;margin:10px auto 0}
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:#f7f7f5;color:#202124;font-family:'Noto Sans Tamil',Arial,sans-serif}
+button,input{font:inherit}.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #ddd}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:auto;padding:0 22px}
+.brand{font-size:24px;font-weight:800;letter-spacing:-.5px}.brand span{font-size:28px}
+.navbtn{border:0;background:#fff;font-size:25px;padding:10px;cursor:pointer}
+.hero{max-width:1100px;margin:0 auto;padding:28px 22px 12px}.search{width:100%;border:1px solid #ddd;border-radius:18px;padding:18px 20px;font-size:18px;outline:none;background:#fff;box-shadow:0 3px 15px #00000008}
+.search:focus{border-color:#777}.count{color:#777;font-size:14px;margin:14px 3px}
+.list{max-width:1100px;margin:0 auto;padding:8px 22px 70px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card{background:#fff;border:1px solid #e5e5e5;border-radius:20px;padding:22px;cursor:pointer;transition:.15s;box-shadow:0 4px 18px #00000008}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px #00000012}.num{color:#777;font-size:13px}.title{font-size:21px;font-weight:700;margin-top:6px}.roman{color:#777;font-size:14px;margin-top:8px;font-style:italic}.open{margin-top:16px;font-size:14px;font-weight:700}
+.reader{display:none;max-width:900px;margin:auto;padding:28px 22px 100px}.back{border:0;background:transparent;padding:8px 0;color:#555;cursor:pointer}.reader h1{font-size:30px;margin:12px 0 4px}.reader .sub{color:#777;font-style:italic;margin-bottom:24px}.stanza{background:#fff;border:1px solid #e7e7e7;border-radius:20px;padding:25px;margin:18px 0;box-shadow:0 4px 16px #00000007}.line-ta{font-size:24px;line-height:1.8}.line-en{font-size:15px;color:#777;line-height:1.6;font-style:italic;margin-bottom:8px}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.primary,.secondary{border:0;border-radius:12px;padding:13px 17px;cursor:pointer;font-weight:700}.primary{background:#222;color:#fff}.secondary{background:#eee;color:#222}
+.admin{max-width:1100px;margin:0 auto;padding:0 22px 50px}.adminbox{background:#fff;border:1px solid #e5e5e5;border-radius:20px;padding:20px}.admin h2{font-size:20px}.hidden{display:none!important}
+.overlay{position:fixed;inset:0;background:#000;color:#fff;z-index:100;display:none;flex-direction:column}.overlay.show{display:flex}.projtop{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;color:#aaa;font-size:13px}.projtitle{text-align:center;color:#aaa;font-size:15px}.slide{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px 6vw;overflow:auto}.slideText{max-width:1500px;font-weight:700;font-size:clamp(30px,4.2vw,76px);line-height:1.65;white-space:pre-line}.slideText .en{display:block;color:#999;font-size:.35em;font-weight:400;line-height:1.5;margin-top:18px}.projcontrols{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;background:#181818dd;padding:8px;border-radius:14px}.projcontrols button{background:#292929;color:#fff;border:1px solid #444;border-radius:10px;padding:10px 13px}.hint{position:absolute;right:16px;bottom:16px;color:#777;font-size:11px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:12px 16px;border-radius:12px;display:none;z-index:200}
+@media(max-width:700px){.nav{height:64px}.brand{font-size:19px}.list{grid-template-columns:1fr;padding:8px 16px 60px}.hero{padding:20px 16px 8px}.reader{padding:20px 16px 80px}.reader h1{font-size:25px}.line-ta{font-size:21px}.stanza{padding:20px}.slide{padding:20px 5vw}.projcontrols{max-width:94%;overflow:auto;white-space:nowrap}.hint{display:none}}
 </style>
 </head>
 <body>
-<header class="header">
- <div class="header-inner">
-  <div class="logo">TAMIL CHRISTIAN SONGS.IN</div>
-  <div class="menu" onclick="toggleSearch()" aria-label="Menu"><span></span><span></span><span></span></div>
- </div>
-</header>
+<header class="top"><div class="nav">
+  <div class="brand"><span>✝</span> Holy Mount Church</div>
+  <button class="navbtn" onclick="toggleAdmin()" aria-label="Menu">☰</button>
+</div></header>
 
-<main class="container">
- <div class="topline"></div>
- <input id="search" class="search hidden" placeholder="Search song title or lyrics..." oninput="render()">
- <section id="list" class="song-list"></section>
+<main id="home">
+<section class="hero">
+  <input id="search" class="search" placeholder="🔎  Search song title or lyrics..." autocomplete="off">
+  <div id="count" class="count"></div>
+</section>
+<section id="list" class="list"></section>
+<section class="admin">
+ <div id="adminbox" class="adminbox hidden">
+   <h2>Song Manager</h2>
+   <p>Import a <b>songs.json</b> file to add/update songs on this device. You can also export your current collection.</p>
+   <div class="controls">
+    <button class="primary" onclick="document.getElementById('file').click()">⬆ Import songs.json</button>
+    <button class="secondary" onclick="exportSongs()">⬇ Export songs.json</button>
+    <button class="secondary" onclick="resetSongs()">Reset sample songs</button>
+   </div>
+   <input id="file" type="file" accept=".json,application/json" class="hidden">
+   <small>Projection data is stored in this browser using local storage. GitHub Pages itself is static, so uploads are not a shared online database.</small>
+ </div>
+</section>
 </main>
 
-<button class="up" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<section id="reader" class="reader">
+ <button class="back" onclick="goHome()">← Back to songs</button>
+ <h1 id="rtitle"></h1><div id="rsub" class="sub"></div>
+ <div class="controls">
+   <button class="primary" onclick="startProjection()">📺 Project this song</button>
+   <button class="secondary" onclick="toggleRoman()">A / தமிழ் Transliteration</button>
+ </div>
+ <div id="lyrics"></div>
+</section>
 
-<div id="cookie" class="cookie">
- By continuing to browse the site, you are agreeing to our use of
- <a href="#" onclick="return false">cookies</a>.
- <button class="close" onclick="document.getElementById('cookie').style.display='none'">Close</button>
+<div id="projection" class="overlay">
+ <div class="projtop"><button class="secondary" onclick="exitProjection()">✕ Exit</button><div id="ptitle" class="projtitle"></div><div id="pcount"></div></div>
+ <div class="slide"><div id="slideText" class="slideText"></div></div>
+ <div class="projcontrols">
+   <button onclick="prevSlide()">◀</button><button onclick="nextSlide()">▶</button>
+   <button onclick="blankScreen()">■ Blank</button><button onclick="toggleProjectionRoman()">A</button><button onclick="tryFullscreen()">⛶</button>
+ </div>
+ <div class="hint">← → next • B blank • Esc exit</div>
 </div>
+<div id="toast" class="toast"></div>
 
 <script>
-const songs = [{"title": "நீர் என் பெலனும் என் கேடகமாம்", "roman": "Neer En Pelanum En Kaedakamaam", "ta": "உம்மைத்தான் நம்பி இருந்தேன்(2)\nசகாயம் பெற்றேன் உதவி பெற்றேன்\nபாடி உம்மை துதிப்பேன்(2)\n\nஉம்மை போற்றுவேன் உம்மை உயர்த்துவேன்\nஉம்மை பாடுவேன் உம்மை ஆராதிப்பேன்(4)\nதுதிகனமகிமைக்கு பாத்திரர்\nஇயேசு ராஜா நீரே(4)\n\nஎன் விண்ணபத்தின் சத்தத்தை கேட்டவரே\nநன்றி நன்றி ஐயா(2)\nவிடுவித்து என்னை மீட்டவரே\nநன்றி நன்றி ஐயா(2)\n\nஎன்னை இரட்சித்து ஆசீர்வதித்தவரே\nநன்றி நன்றி ஐயா(2)\nபோசித்து என்னை உயர்தினீரே\nநன்றி நன்றி ஐயா(2)", "ro": "ummaiththaan Nampi Irunthaen(2)\nSakaayam Petten Uthavi Petten\nPaati Ummai Thuthippaen(2)\n\nUmmai Pottuvaen Ummai Uyarththuvaen\nUmmai Paaduvaen Ummai Aaraathippaen(4)\nThuthikanamakimaikku Paaththirar\nYesu Raajaa Neerae(4)\n\nen Vinnnapaththin Saththaththai Kaettavarae\nNanti Nanti Aiyaa(2)\nViduviththu Ennai Meettavarae\nNanti Nanti Aiyaa(2)\n\nennai Iratchiththu Aaseervathiththavarae\nNanti Nanti Aiyaa(2)\nPosiththu Ennai Uyarthineerae\nNanti Nanti Aiyaa(2)"}, {"title": "புது கிருபைகள் தினம் தினம் தந்து", "roman": "Puthu Kirupaikal Thinam Thinam Thanthu", "ta": "புது கிருபைகள் தினம் தினம் தந்து\nஎன்னை நடத்தி செல்பவரே\nஅனுதினமும் உம் கரம் நீட்டி\nஎன்னை ஆசீர்வதிப்பவரே\n\nஎன் இயேசுவே உம்மை சொந்தமாக\nகொண்ட என் பாக்கியமே\nஇதை விடவும் பெரியதான\nமேன்மை ஒன்றும் இல்லையே\n\nநேர் வழியாய் என்னை நடத்தினீர்\nநீதியின் பாதையில் நடத்தினீர்\nகாரியம் வாய்க்க செய்தீர்\nஎன்னை கண்மணி போல காத்திட்டீர்\n\nபாதங்கள் சறுக்கின வேளையில்\nபதறாத கரம் நீட்டி தாங்கினீர்\nபாரமெல்லாம் நீக்கினீர்\nஎன்னை பாடி மகிழ வைத்தீர்", "ro": "puthu Kirupaikal Thinam Thinam Thanthu\nennai Nadaththi Selpavarae\nAnuthinamum Um Karam Neetti\nEnnai Aaseervathippavarae\n\nen Yesuvae Ummai Sonthamaaka\nKonnda En Paakkiyamae\nIthai Vidavum Periyathaana\nMaenmai Ontum Illaiyae\n\nnaer Valiyaay Ennai Nadaththineer\nNeethiyin Paathaiyil Nadaththineer\nKaariyam Vaaykka Seytheer\nEnnai Kannmanni Pola Kaaththittir\n\npaathangal Sarukkina Vaelaiyil\nPatharaatha Karam Neetti Thaangineer\nPaaramellaam Neekkineer\nEnnai Paati Makila Vaiththeer"}, {"title": "ஆ கர்த்தாவே, தாழ்மையாக", "roman": "Aa Karththavae, Thaalmaiyaaka", "ta": "1. ஆ கர்த்தாவே, தாழ்மையாக\nதிருப் பாதத்தண்டையே\nதெண்டனிட ஆவலாக\nவந்தேன், நல்ல இயேசுவே;\nஉம்மைத் தேடி\nதரிசிக்கவே வந்தேன்.\n\n2. வல்ல கர்த்தாவினுடைய\nதூய ஆட்டுக்குட்டியே,\nநீரே என்றும் என்னுடைய\nஞான மணவாளனே;\nஉம்மைத் தேடி\nதரிசிக்கவே வந்தேன்.\n\n3. என் பிரார்த்தனையைக் கேளும்,\nஅத்தியந்த பணிவாய்;\nகெஞ்சும் என்னை ஏற்றுக் கொள்ளும்\nஉம்முடைய பிள்ளையாய்;\nஉம்மைத் தேடி\nதரிசிக்கவே வந்தேன்.", "ro": "1. Aa Karththaavae, Thaalmaiyaaka\nThirup Paathaththanntaiyae\nThenndanida Aavalaaka\nVanthaen, Nalla Yesuvae;\nUmmai Thaeti\nTharisikkavae Vanthaen.\n\n2. Valla Karththaavinutaiya\nThooya Aattukkuttiyae,\nNeerae Entum Ennutaiya\nNjaana Manavaalanae;\nUmmai Thaeti\nTharisikkavae Vanthaen.\n\n3. En Piraarththanaiyaik Kaelum,\nAththiyantha Pannivaay;\nKenjum Ennai Aettuk Kollum\nUmmutaiya Pillaiyaay;\nUmmai Thaeti\nTharisikkavae Vanthaen."}, {"title": "ஊற்றிடுமே உம் வல்லமையை", "roman": "Ootridume Um Vallamaiyai", "ta": "ஊற்றிடுமே உம் வல்லமையை\nஇந்த நாளில் எங்கள் மேலே\nஊற்றிடுமே உம் அக்கினியை\nஇந்த நாளில் எங்கள்மீது வல்லமையோடு\n\nவல்லமை வல்லமை தாருமே\nதேசத்தை உமக்காய் கலக்கிட\nஅபிஷேகம் அபிஷேகம் ஊற்றுமே\nஅனல்கொண்டு உமக்காய் எழும்பிட\n\n1. பெந்தகோஸ்தே நாளில் செய்ததுப்போல\nஅக்கினியின் நாவுகள் பொழிந்திடுமே – 2\nஅப்போஸ்தலர் நாட்களில் செய்ததுப்போல\nஇன்றும் செய்ய வேண்டுமே – 2\n\n2. மாம்சமான யாவர் மேலும் ஊற்றுவேன் என்று\nவாக்கு தந்த ஆவியை ஊற்ற வேண்டுமே – 2\nநீச்சல் ஆழம் கொண்டு சென்று நீந்த செய்யுமே\nநதியாய் பாய்ந்திடுமே – 2\n\n3. அற்புதங்கள் திரளாய் நடந்திடவே\nஅற்புதத்தின் ஆவியே வந்திடுமே – 2\nஅந்தகார சங்கிலிகள் அறுந்திடவே\nஅக்கினியை ஊற்றிடுமே – 2", "ro": "oottidumae Um Vallamaiyai\nIntha Naalil Engal Maelae\nOottidumae Um Akkiniyai\nIntha Naalil Engalmeethu Vallamaiyodu\n\nvallamai Vallamai Thaarumae\nThaesaththai Umakkaay Kalakkida\nApishaekam Apishaekam Oottumae\nAnalkonndu Umakkaay Elumpida\n\n1. Penthakosthae Naalil Seythathuppola\nAkkiniyin Naavukal Polinthidumae – 2\nApposthalar Naatkalil Seythathuppola\nIntum Seyya Vaenndumae – 2\n\n2. Maamsamaana Yaavar Maelum Oottuvaen Entu\nVaakku Thantha Aaviyai Ootta Vaenndumae – 2\nNeechchal Aalam Konndu Sentu Neentha Seyyumae\nNathiyaay Paaynthidumae – 2\n\n3. Arputhangal Thiralaay Nadanthidavae\nArputhaththin Aaviyae Vanthidumae – 2\nAnthakaara Sangilikal Arunthidavae\nAkkiniyai Oottidumae – 2"}, {"title": "ஒவ்வொரு நாட்களிலும்", "roman": "Ovvoru Naatkalilum", "ta": "ஒவ்வொரு நாட்களிலும்\nபிரியாமல் கடைசி வரை\nஒவ்வொரு நிமிடமும்\nகிருபையால் நடத்திடுமே\n\nநான் உம்மை நேசிக்கிறேன்\nஎந்தன் உயிரைப் பார்க்கிலும்\nஆராதிப்பேன் உம்மை நான்\nஉண்மை மனதுடன்\n\nஎன்னை நேசிக்கும் நேசத்தின் தேவனை\nஎன்னை நேசித்த நேசத்தின் ஆழமதை\nபெரும் கிருபையை நினைக்கும் போது\nஎன்ன பதில் செய்வேனோ\nஇரட்சிப்பின் பாத்திரத்தை\nஉயர்த்திடுவேன் நன்றியோடு\n\nபெற்ற என் தாயும்\nநண்பர்கள் தள்ளுகையில்\nஎன் உயிர் கொடுத்து\nநான் நேசித்தோர் வெறுக்கையிலே\nநீ என்னுடையவன் என்று சொல்லி\nஅழைத்தீர் என் செல்லப் பெயரை\nவளர்த்தீர் இவ்வளவாக\nஉம் நாமம் மகிமைக்காக\n\nஇரத்தாம்பரம் போலுள்ள பாவங்களை\nபனியை விட வெண்மையாய் மாற்றினீரே\nசொந்த இரத்தம் சிந்தியே\nமகனையே பலியாக்கினீர்\nநான் இரட்சிப்படைவதற்கு\nஎன் பாவம் சுமந்து தீர்த்தீர்", "ro": "ovvoru Naatkalilum\npiriyaamal Kataisi Varai\nOvvoru Nimidamum\nKirupaiyaal Nadaththidumae\n\nnaan Ummai Naesikkiraen\nEnthan Uyiraip Paarkkilum\nAaraathippaen Ummai Naan\nUnnmai Manathudan\n\nennai Naesikkum Naesaththin Thaevanai\nEnnai Naesiththa Naesaththin Aalamathai\nPerum Kirupaiyai Ninaikkum Pothu\nEnna Pathil Seyvaeno\nIratchippin Paaththiraththai\nUyarththiduvaen Nantiyodu\n\npetta En Thaayum\nNannparkal Thallukaiyil\nEn Uyir Koduththu\nNaan Naesiththor Verukkaiyilae\nNee Ennutaiyavan Entu Solli\nAlaiththeer En Sellap Peyarai\nValarththeer Ivvalavaaka\nUm Naamam Makimaikkaaka\n\niraththaamparam Polulla Paavangalai\nPaniyai Vida Vennmaiyaay Maattineerae\nSontha Iraththam Sinthiyae\nMakanaiyae Paliyaakkineer\nNaan Iratchippataivatharku\nEn Paavam Sumanthu Theerththeer"}, {"title": "விண்ணாக காற்றே நீர் என்னை நோக்கி வீசிடும்", "roman": "Vinnnnaaka Kaatte Neer Ennai Nnokki Veesidum", "ta": "விண்ணாக காற்றே நீர் என்னை நோக்கி வீசிடும்\nவெண்புறாவைப் போல என்மேல் வந்தமர்ந்திடும்\n\nஜலத்தின் மேல் அசைவாடிய\nதூயதேவா ஆவியே\nபெலத்தின் மேல் பெலனடைய\nஎன்மேல் அசைவாடுமே\n\nஅக்கினி அபிஷேகம் இன்று\nவேண்டும் தெய்வமே\nஎந்நாளுமே என் பாத்ரம்\nநிரம்பி வழிய வேண்டுமே\n\nஅக்கினி ரதத்தின் மேல்\nஎன்னைக் கொண்டு செல்லுமே\nபரலோகத் தூதருடன்\nஆராதிக்கச் செய்யுமே\n\nமுழங்காலை முடக்கியது\nமுரங்கால் அளவு அல்ல\nநீச்சல் ஆழம் வேண்டுமே\nஇழத்துச் செல்லும் என்னையே\n\nமறுரூப அனுபவம்\nஎனக்கு வேண்டும் தெய்வமே\nமறுரூப மலைதனிலே\nஅழைத்துச் செல்லும் என்னையே", "ro": "Vinnnnaaka Kaatte Neer Ennai Nnokki Veesidum\nVennpuraavaip Pola Enmael Vanthamarnthidum\n\njalaththin Mael Asaivaatiya\nThooyathaevaa Aaviyae\nPelaththin Mael Pelanataiya\nEnmael Asaivaadumae\n\nakkini Apishaekam Intu\nVaenndum Theyvamae\nEnnaalumae En Paathram\nNirampi Valiya Vaenndumae\n\nakkini Rathaththin Mael\nEnnaik Konndu Sellumae\nParalokath Thootharudan\nAaraathikkach Seyyumae\n\nmulangaalai Mudakkiyathu\nMurangaal Alavu Alla\nNeechchal Aalam Vaenndumae\nIlaththuch Sellum Ennaiyae\n\nmaruroopa Anupavam\nEnakku Vaenndum Theyvamae\nMaruroopa Malaithanilae\nAlaiththuch Sellum Ennaiyae"}, {"title": "நம்பிக்கை உடைய சிறைகளே", "roman": "Nampikkai Utaiya Siraikalae", "ta": "நம்பிக்கை உடைய சிறைகளே\nஅரணுக்கு திரும்புங்கள்\nஇரட்டிப்பானதை தருகிறார்\nஇன்றைக்கு திரும்புங்கள்\n\nநீ விலக்கப்பட்ட உன்\nஸ்தானத்திற்கே மறுபடியும்\nஉன்னை அழைக்கின்றார்\n\nஅவர் சொல்லிட்ட நல்வார்த்தை\nநிறைவேற்றினார்\n\nAliyah Aliyah Aliyah Aliyah\nஅரணுக்கு திரும்புவோம்\nAliyah Aliyah Aliyah Aliyah\nகர்த்தரை உயர்த்துவோம்\n\nகொள்ளை கொண்ட உன்\nபட்டணத்தை மறுபடியும்\nகுடியேற்றுவார்\nஇராஜாக்கள் உன்னை தேடி\nவர வாசலை இராப்பகல்\nதிறந்து வைப்பார்\n\n(உன்னை)ஒடுக்கினோரை குனிய\nசெய்வார் பரியாசம்\nசெய்தோரை பணிய செய்வார்\nசத்துருவின் வாசல்களை மேற்கொள்ளும்\nகிருபையை உனக்குத் தந்தார்\n\nதேசத்திலே கொடுமையில்லை அழிவை\nஉன் எல்லையில் கேட்பதில்லை\nஇரட்சிப்பை உனக்கு மதிலாக்கினார்\nஉந்தன் வாசலை துதியாக்கினார்\n\nஅவர் சொன்னதை சிலுவையில்\nநிறைவேற்றினார்\n\nAliyah Aliyah Aliyah Aliyah\nஅரணுக்கு திரும்புவோம்\nAliyah Aliyah Aliyah Aliyah\nகர்த்தரை உயர்த்துவோம்", "ro": "nampikkai Utaiya Siraikalae\naranukku Thirumpungal\nIrattippaanathai Tharukiraar\nIntaikku Thirumpungal\n\nNee Vilakkappatta Un\nSthaanaththirkae Marupatiyum\nUnnai Alaikkintar\n\nAvar Sollitta Nalvaarththai\nNiraivaettinaar\n\nAliyah Aliyah Aliyah Aliyah\nAranukku Thirumpuvom\nAliyah Aliyah Aliyah Aliyah\nKarththarai Uyarththuvom\n\nKollai Konnda Un\nPattanaththai Marupatiyum\nKutiyaettuvaar\nIraajaakkal Unnai Thaeti\nVara Vaasalai Iraappakal\nThiranthu Vaippaar\n\n(unnai)odukkinorai Kuniya\nSeyvaar Pariyaasam\nSeythorai Panniya Seyvaar\nSaththuruvin Vaasalkalai Maerkollum\nKirupaiyai Unakkuth Thanthaar\n\nThaesaththilae Kodumaiyillai Alivai\nUn Ellaiyil Kaetpathillai\nIratchippai Unakku Mathilaakkinaar\nUnthan Vaasalai Thuthiyaakkinaar\n\nAvar Sonnathai Siluvaiyil\nNiraivaettinaar\n\nAliyah Aliyah Aliyah Aliyah\nAranukku Thirumpuvom\nAliyah Aliyah Aliyah Aliyah\nKarththarai Uyarththuvom"}, {"title": "அழைத்தவரே! அழைத்தவரே!", "roman": "Alaiththavarae! Alaiththavarae!", "ta": "அழைத்தவரே! அழைத்தவரே!\nஎன் ஊழியத்தின் ஆதாரமே\n\nஎத்தனை நிந்தைகள் எத்தனை தேவைகள்\nஎனை சூழநின்றாலும் உம்மை பார்க்கின்றேன்\nஉத்தம ஊழியன் என்று நீர் சொல்லிடும்\nஒரு வார்த்தை கேட்டிட உண்மையாய் ஒடுகிறேன்\n\nவீணான புகழ்ச்சிகள் எனக்கு இங்கு வேண்டாம்\nபதவிகள் பெருமைகள் ஒரு நாளும் வேண்டாம்\nஊழியப் பாதையில் ஒன்று மட்டும் போதுமே\nஅப்பா உன் கால்களின் சுவடுகள் போதுமே\n\nவிமர்சன உதடுகள் மனம்சோர வைத்தாலும்\nமலைபோன்ற தேவைகள் சபை நடுவில் நின்றாலும்\nஅழைத்தவர் என்றுமே விலகுவதில்லையே\nகிருபையின் வரங்களும் குறைவதும் இல்லையே", "ro": "alaiththavarae! Alaiththavarae!\nen Ooliyaththin Aathaaramae\n\neththanai Ninthaikal Eththanai Thaevaikal\nEnai Soolanintalum Ummai Paarkkinten\nUththama Ooliyan Entu Neer Sollidum\nOru Vaarththai Kaettida Unnmaiyaay Odukiraen\n\nveennaana Pukalchchikal Enakku Ingu Vaenndaam\nPathavikal Perumaikal Oru Naalum Vaenndaam\nOoliyap Paathaiyil Ontu Mattum Pothumae\nAppaa Un Kaalkalin Suvadukal Pothumae\n\nvimarsana Uthadukal Manamsora Vaiththaalum\nMalaiponta Thaevaikal Sapai Naduvil Nintalum\nAlaiththavar Entumae Vilakuvathillaiyae\nKirupaiyin Varangalum Kuraivathum Illaiyae"}, {"title": "எல்லாமே முடிந்தது என்று (முடிந்ததென்று)", "roman": "Ellaamae Mutinthathu Entu (Mutinthathentu)", "ta": "எல்லாமே முடிந்தது என்று (முடிந்ததென்று)\nஎன்னைப்பார்த்து இகழ்ந்தனர்\nஇனியென்றும் எழும்புவதில்லை\nஎன்று சொல்லி நகைத்தனர்\nஆனாலும் நீங்க என்னை\nகண்டவிதம் பெரியது\nஎன் உயர்வின் பெருமையெல்லாம்\nஉம் ஒருவருக்கு உரியதே\nநீர் மட்டும் பெருகனும்\nநீர் மட்டும் இயேசுவே\n\nஉடைக்கப்பட்ட பாத்திரமானேன்\nஉபயோக மற்று இருந்தேன்\nஒன்றுக்கும் உதவுவதில்லை\nஎன்று சொல்லி ஒதுக்கப்பட்டேன்\nகுயவனே உந்தன் கரம்\nமீண்டும் எனை வனைந்தது\nவிழுந்து போன இடங்களில்யெல்லாம்\nஎன் தலையை உயர்த்தியதே....", "ro": "ellaamae Mutinthathu Entu (mutinthathentu)\nennaippaarththu Ikalnthanar\nIniyentum Elumpuvathillai\nEntu Solli Nakaiththanar\nAanaalum Neenga Ennai\nKanndavitham Periyathu\nEn Uyarvin Perumaiyellaam\nUm Oruvarukku Uriyathae\nNeer Mattum Perukanum\nNeer Mattum Yesuvae\n\nutaikkappatta Paaththiramaanaen\nUpayoka Mattu Irunthaen\nOntukkum Uthavuvathillai\nEntu Solli Othukkappattaen\nKuyavanae Unthan Karam\nMeenndum Enai Vanainthathu\nVilunthu Pona Idangalilyellaam\nEn Thalaiyai Uyarththiyathae...."}, {"title": "இதுவரை நடத்தி குறைவின்றி காத்து", "roman": "Ithuvarai Nadaththi Kuraivinti Kaaththu", "ta": "இதுவரை நடத்தி குறைவின்றி காத்து\nமகிழ்வை தந்தீரே நன்றி ஐயா\n\nதண்ணீரை கடந்தேன் சோதனை ஜெயித்தேன்\nமதிலை தாண்டினேன் உம் பலத்தால்\n\nநன்றி நன்றி ஐயா\nஉம்மை உயர்த்திடுவேன்\n\nஆபத்து நாளில் அனுகுலமான\nதுணையுமானீரே நன்றி ஐயா\n\nஉம் கரம் நீட்டி ஆசீர்வதித்து\nஎல்லையை பெருக்கினீர் நன்றி ஐயா\n\nஅபிஷேகம் தந்து வரங்களை ஈந்து\nபயண்படச் செய்தீரே நன்றி ஐயா\n\nகிருபைகள் தந்து ஊழியம் தந்து\nஉயர்த்தி வைத்தீரே நன்றி ஐயா", "ro": "ithuvarai Nadaththi Kuraivinti Kaaththu\nmakilvai Thantheerae Nanti Aiyaa\n\nthannnneerai Kadanthaen Sothanai Jeyiththaen\nMathilai Thaanntinaen Um Palaththaal\n\nnanti Nanti Aiyaa\nUmmai Uyarththiduvaen\n\naapaththu Naalil Anukulamaana\nThunnaiyumaaneerae Nanti Aiyaa\n\num Karam Neetti Aaseervathiththu\nEllaiyai Perukkineer Nanti Aiyaa\n\napishaekam Thanthu Varangalai Eenthu\nPayannpadach Seytheerae Nanti Aiyaa\n\nkirupaikal Thanthu Ooliyam Thanthu\nUyarththi Vaiththeerae Nanti Aiyaa"}];
+const defaultSongs = [{"title": "புது கிருபைகள் தினம் தினம் தந்து", "transliteration": "Puthu Kirupaikal Thinam Thinam Thanthu", "stanzas": [[["புது கிருபைகள் தினம் தினம் தந்து", "puthu Kirupaikal Thinam Thinam Thanthu"], ["என்னை நடத்தி செல்பவரே", "ennai Nadaththi Selpavarae"], ["அனுதினமும் உம் கரம் நீட்டி", "Anuthinamum Um Karam Neetti"], ["என்னை ஆசீர்வதிப்பவரே", "Ennai Aaseervathippavarae"]], [["என் இயேசுவே உம்மை சொந்தமாக", "en Yesuvae Ummai Sonthamaaka"], ["கொண்ட என் பாக்கியமே", "Konnda En Paakkiyamae"], ["இதை விடவும் பெரியதான", "Ithai Vidavum Periyathaana"], ["மேன்மை ஒன்றும் இல்லையே", "Maenmai Ontum Illaiyae"]], [["நேர் வழியாய் என்னை நடத்தினீர்", "naer Valiyaay Ennai Nadaththineer"], ["நீதியின் பாதையில் நடத்தினீர்", "Neethiyin Paathaiyil Nadaththineer"], ["காரியம் வாய்க்க செய்தீர்", "Kaariyam Vaaykka Seytheer"], ["என்னை கண்மணி போல காத்திட்டீர்", "Ennai Kannmanni Pola Kaaththittir"]], [["பாதங்கள் சறுக்கின வேளையில்", "paathangal Sarukkina Vaelaiyil"], ["பதறாத கரம் நீட்டி தாங்கினீர்", "Patharaatha Karam Neetti Thaangineer"], ["பாரமெல்லாம் நீக்கினீர்", "Paaramellaam Neekkineer"], ["என்னை பாடி மகிழ வைத்தீர்", "Ennai Paati Makila Vaiththeer"]]]}, {"title": "ஆ கர்த்தாவே, தாழ்மையாக", "transliteration": "Aa Karththavae, Thaalmaiyaaka", "stanzas": [[["ஆ கர்த்தாவே, தாழ்மையாக", "Aa Karththavae, Thaalmaiyaaka"], ["திருப் பாதத்தண்டையே", "Thirup Paathaththanntaiyae"], ["தெண்டனிட ஆவலாக", "Thenndanida Aavalaaka"], ["வந்தேன், நல்ல இயேசுவே;", "Vanthaen, Nalla Yesuvae;"], ["உம்மைத் தேடி", "Ummaith Thaeti"], ["தரிசிக்கவே வந்தேன்.", "Tharisikkavae Vanthaen."]], [["வல்ல கர்த்தாவினுடைய", "Valla Karththaavinutaiya"], ["தூய ஆட்டுக்குட்டியே,", "Thooya Aattukkuttiyae,"], ["நீரே என்றும் என்னுடைய", "Neerae Entum Ennutaiya"], ["ஞான மணவாளனே;", "Njaana Manavaalanae;"], ["உம்மைத் தேடி", "Ummaith Thaeti"], ["தரிசிக்கவே வந்தேன்.", "Tharisikkavae Vanthaen."]], [["என் பிரார்த்தனையைக் கேளும்,", "En Piraarththanaiyaik Kaelum,"], ["அத்தியந்த பணிவாய்;", "Aththiyantha Pannivaay;"], ["கெஞ்சும் என்னை ஏற்றுக் கொள்ளும்", "Kenjum Ennai Aettuk Kollum"], ["உம்முடைய பிள்ளையாய்;", "Ummutaiya Pillaiyaay;"], ["உம்மைத் தேடி", "Ummaith Thaeti"], ["தரிசிக்கவே வந்தேன்.", "Tharisikkavae Vanthaen."]]]}, {"title": "ஊற்றிடுமே உம் வல்லமையை", "transliteration": "Ootridumae Um Vallamaiyai", "stanzas": [[["ஊற்றிடுமே உம் வல்லமையை", "oottidumae Um Vallamaiyai"], ["இந்த நாளில் எங்கள் மேலே", "Intha Naalil Engal Maelae"], ["ஊற்றிடுமே உம் அக்கினியை", "Oottidumae Um Akkiniyai"], ["இந்த நாளில் எங்கள்மீது வல்லமையோடு", "Intha Naalil Engalmeethu Vallamaiyodu"]], [["வல்லமை வல்லமை தாருமே", "vallamai Vallamai Thaarumae"], ["தேசத்தை உமக்காய் கலக்கிட", "Thaesaththai Umakkaay Kalakkida"], ["அபிஷேகம் அபிஷேகம் ஊற்றுமே", "Apishaekam Apishaekam Oottumae"], ["அனல்கொண்டு உமக்காய் எழும்பிட", "Analkonndu Umakkaay Elumpida"]], [["பெந்தகோஸ்தே நாளில் செய்ததுப்போல", "Penthakosthae Naalil Seythathuppola"], ["அக்கினியின் நாவுகள் பொழிந்திடுமே – 2", "Akkiniyin Naavukal Polinthidumae – 2"], ["அப்போஸ்தலர் நாட்களில் செய்ததுப்போல", "Apposthalar Naatkalil Seythathuppola"], ["இன்றும் செய்ய வேண்டுமே – 2", "Intum Seyya Vaenndumae – 2"]], [["மாம்சமான யாவர் மேலும் ஊற்றுவேன் என்று", "Maamsamaana Yaavar Maelum Oottuvaen Entu"], ["வாக்கு தந்த ஆவியை ஊற்ற வேண்டுமே – 2", "Vaakku Thantha Aaviyai Ootta Vaenndumae – 2"], ["நீச்சல் ஆழம் கொண்டு சென்று நீந்த செய்யுமே", "Neechchal Aalam Konndu Sentu Neentha Seyyumae"], ["நதியாய் பாய்ந்திடுமே – 2", "Nathiyaay Paaynthidumae – 2"]], [["அற்புதங்கள் திரளாய் நடந்திடவே", "Arputhangal Thiralaay Nadanthidavae"], ["அற்புதத்தின் ஆவியே வந்திடுமே – 2", "Arputhaththin Aaviyae Vanthidumae – 2"], ["அந்தகார சங்கிலிகள் அறுந்திடவே", "Anthakaara Sangilikal Arunthidavae"], ["அக்கினியை ஊற்றிடுமே – 2", "Akkiniyai Oottidumae – 2"]]]}, {"title": "ஒவ்வொரு நாட்களிலும்", "transliteration": "Ovvoru Naatkalilum", "stanzas": [[["ஒவ்வொரு நாட்களிலும்", "ovvoru Naatkalilum"], ["பிரியாமல் கடைசி வரை", "piriyaamal Kataisi Varai"], ["ஒவ்வொரு நிமிடமும்", "Ovvoru Nimidamum"], ["கிருபையால் நடத்திடுமே", "Kirupaiyaal Nadaththidumae"]], [["நான் உம்மை நேசிக்கிறேன்", "naan Ummai Naesikkiraen"], ["எந்தன் உயிரைப் பார்க்கிலும்", "Enthan Uyiraip Paarkkilum"], ["ஆராதிப்பேன் உம்மை நான்", "Aaraathippaen Ummai Naan"], ["உண்மை மனதுடன்", "Unnmai Manathudan"]], [["என்னை நேசிக்கும் நேசத்தின் தேவனை", "ennai Naesikkum Naesaththin Thaevanai"], ["என்னை நேசித்த நேசத்தின் ஆழமதை", "Ennai Naesiththa Naesaththin Aalamathai"], ["பெரும் கிருபையை நினைக்கும் போது", "Perum Kirupaiyai Ninaikkum Pothu"], ["என்ன பதில் செய்வேனோ", "Enna Pathil Seyvaeno"], ["இரட்சிப்பின் பாத்திரத்தை", "Iratchippin Paaththiraththai"], ["உயர்த்திடுவேன் நன்றியோடு", "Uyarththiduvaen Nantiyodu"]], [["பெற்ற என் தாயும்", "petta En Thaayum"], ["நண்பர்கள் தள்ளுகையில்", "Nannparkal Thallukaiyil"], ["என் உயிர் கொடுத்து", "En Uyir Koduththu"], ["நான் நேசித்தோர் வெறுக்கையிலே", "Naan Naesiththor Verukkaiyilae"], ["நீ என்னுடையவன் என்று சொல்லி", "Nee Ennutaiyavan Entu Solli"], ["அழைத்தீர் என் செல்லப் பெயரை", "Alaiththeer En Sellap Peyarai"], ["வளர்த்தீர் இவ்வளவாக", "Valarththeer Ivvalavaaka"], ["உம் நாமம் மகிமைக்காக", "Um Naamam Makimaikkaaka"]], [["இரத்தாம்பரம் போலுள்ள பாவங்களை", "iraththaamparam Polulla Paavangalai"], ["பனியை விட வெண்மையாய் மாற்றினீரே", "Paniyai Vida Vennmaiyaay Maattineerae"], ["சொந்த இரத்தம் சிந்தியே", "Sontha Iraththam Sinthiyae"], ["மகனையே பலியாக்கினீர்", "Makanaiyae Paliyaakkineer"], ["நான் இரட்சிப்படைவதற்கு", "Naan Iratchippataivatharku"], ["என் பாவம் சுமந்து தீர்த்தீர்", "En Paavam Sumanthu Theerththeer"]]]}, {"title": "விண்ணாக காற்றே", "transliteration": "Vinnnnaaka Kaatte", "stanzas": [[["விண்ணாக காற்றே நீர் என்னை நோக்கி வீசிடும்", "Vinnnnaaka Kaatte Neer Ennai Nnokki Veesidum"], ["வெண்புறாவைப் போல என்மேல் வந்தமர்ந்திடும்", "Vennpuraavaip Pola Enmael Vanthamarnthidum"]], [["ஜலத்தின் மேல் அசைவாடிய", "jalaththin Mael Asaivaatiya"], ["தூயதேவா ஆவியே", "Thooyathaevaa Aaviyae"], ["பெலத்தின் மேல் பெலனடைய", "Pelaththin Mael Pelanataiya"], ["என்மேல் அசைவாடுமே", "Enmael Asaivaadumae"]], [["அக்கினி அபிஷேகம் இன்று", "akkini Apishaekam Intu"], ["வேண்டும் தெய்வமே", "Vaenndum Theyvamae"], ["எந்நாளுமே என் பாத்ரம்", "Ennaalumae En Paathram"], ["நிரம்பி வழிய வேண்டுமே", "Nirampi Valiya Vaenndumae"]], [["அக்கினி ரதத்தின் மேல்", "akkini Rathaththin Mael"], ["என்னைக் கொண்டு செல்லுமே", "Ennaik Konndu Sellumae"], ["பரலோகத் தூதருடன்", "Paralokath Thootharudan"], ["ஆராதிக்கச் செய்யுமே", "Aaraathikkach Seyyumae"]], [["முழங்காலை முடக்கியது", "mulangaalai Mudakkiyathu"], ["முரங்கால் அளவு அல்ல", "Muranghaal Alavu Alla"], ["நீச்சல் ஆழம் வேண்டுமே", "Neechchal Aalam Vaenndumae"], ["இழத்துச் செல்லும் என்னையே", "Ilaththuch Sellum Ennaiyae"]], [["மறுரூப அனுபவம்", "maruroopa Anupavam"], ["எனக்கு வேண்டும் தெய்வமே", "Enakku Vaenndum Theyvamae"], ["மறுரூப மலைதனிலே", "Maruroopa Malaithanilae"], ["அழைத்துச் செல்லும் என்னையே", "Alaiththuch Sellum Ennaiyae"]]]}, {"title": "நம்பிக்கை உடைய சிறைகளே", "transliteration": "Nampikkai Utaiya Siraikalae", "stanzas": [[["நம்பிக்கை உடைய சிறைகளே", "nampikkai Utaiya Siraikalae"], ["அரணுக்கு திரும்புங்கள்", "aranukku Thirumpungal"], ["இரட்டிப்பானதை தருகிறார்", "Irattippaanathai Tharukiraar"], ["இன்றைக்கு திரும்புங்கள்", "Intaikku Thirumpungal"]], [["நீ விலக்கப்பட்ட உன்", "Nee Vilakkappatta Un"], ["ஸ்தானத்திற்கே மறுபடியும்", "Sthaanaththirkae Marupatiyum"], ["உன்னை அழைக்கின்றார்", "Unnai Alaikkintar"], ["அவர் சொல்லிட்ட நல்வார்த்தை", "Avar Sollitta Nalvaarththai"], ["நிறைவேற்றினார்", "Niraivaettinaar"]], [["Aliyah Aliyah Aliyah Aliyah", "Aliyah Aliyah Aliyah Aliyah"], ["அரணுக்கு திரும்புவோம்", "Aranukku Thirumpuvom"], ["Aliyah Aliyah Aliyah Aliyah", "Aliyah Aliyah Aliyah Aliyah"], ["கர்த்தரை உயர்த்துவோம்", "Karththarai Uyarththuvom"]], [["கொள்ளை கொண்ட உன்", "Kollai Konnda Un"], ["பட்டணத்தை மறுபடியும்", "Pattanaththai Marupatiyum"], ["குடியேற்றுவார்", "Kutiyaettuvaar"], ["இராஜாக்கள் உன்னை தேடி", "Iraajaakkal Unnai Thaeti"], ["வர வாசலை இராப்பகல்", "Vara Vaasalai Iraappakal"], ["திறந்து வைப்பார்", "Thiranthu Vaippaar"]], [["உன்னை ஒடுக்கினோரை குனிய செய்வார் பரியாசம்", "unnai odukkinorai Kuniya Seyvaar Pariyaasam"], ["செய்தோரை பணிய செய்வார்", "Seythorai Panniya Seyvaar"], ["சத்துருவின் வாசல்களை மேற்கொள்ளும்", "Saththuruvin Vaasalkalai Maerkollum"], ["கிருபையை உனக்குத் தந்தார்", "Kirupaiyai Unakkuth Thanthaar"]], [["தேசத்திலே கொடுமையில்லை அழிவை", "Thaesaththilae Kodumaiyillai Alivai"], ["உன் எல்லையில் கேட்பதில்லை", "Un Ellaiyil Kaetpathillai"], ["இரட்சிப்பை உனக்கு மதிலாக்கினார்", "Iratchippai Unakku Mathilaakkinaar"], ["உந்தன் வாசலை துதியாக்கினார்", "Unthan Vaasalai Thuthiyaakkinaar"]], [["அவர் சொன்னதை சிலுவையில்", "Avar Sonnathai Siluvaiyil"], ["நிறைவேற்றினார்", "Niraivaettinaar"], ["Aliyah Aliyah Aliyah Aliyah", "Aliyah Aliyah Aliyah Aliyah"], ["அரணுக்கு திரும்புவோம்", "Aranukku Thirumpuvom"], ["கர்த்தரை உயர்த்துவோம்", "Karththarai Uyarththuvom"]]]}, {"title": "அழைத்தவரே! அழைத்தவரே!", "transliteration": "Alaiththavarae! Alaiththavarae!", "stanzas": [[["அழைத்தவரே! அழைத்தவரே!", "alaiththavarae! Alaiththavarae!"], ["என் ஊழியத்தின் ஆதாரமே", "en Ooliyaththin Aathaaramae"]], [["எத்தனை நிந்தைகள் எத்தனை தேவைகள்", "eththanai Ninthaikal Eththanai Thaevaikal"], ["எனை சூழநின்றாலும் உம்மை பார்க்கின்றேன்", "Enai Soolanintalum Ummai Paarkkinten"], ["உத்தம ஊழியன் என்று நீர் சொல்லிடும்", "Uththama Ooliyan Entu Neer Sollidum"], ["ஒரு வார்த்தை கேட்டிட உண்மையாய் ஒடுகிறேன்", "Oru Vaarththai Kaettida Unnmaiyaay Odukiraen"]], [["வீணான புகழ்ச்சிகள் எனக்கு இங்கு வேண்டாம்", "veennaana Pukalchchikal Enakku Ingu Vaenndaam"], ["பதவிகள் பெருமைகள் ஒரு நாளும் வேண்டாம்", "Pathavikal Perumaikal Oru Naalum Vaenndaam"], ["ஊழியப் பாதையில் ஒன்று மட்டும் போதுமே", "Ooliyap Paathaiyil Ontu Mattum Pothumae"], ["அப்பா உன் கால்களின் சுவடுகள் போதுமே", "Appaa Un Kaalkalin Suvadukal Pothumae"]], [["விமர்சன உதடுகள் மனம்சோர வைத்தாலும்", "vimarsana Uthadukal Manamsora Vaiththaalum"], ["மலைபோன்ற தேவைகள் சபை நடுவில் நின்றாலும்", "Malaiponta Thaevaikal Sapai Naduvil Nintalum"], ["அழைத்தவர் என்றுமே விலகுவதில்லையே", "Alaiththavar Entumae Vilakuvathillaiyae"], ["கிருபையின் வரங்களும் குறைவதும் இல்லையே", "Kirupaiyin Varangalum Kuraivathum Illaiyae"]]]}, {"title": "எல்லாமே முடிந்தது என்று", "transliteration": "Ellaamae Mutinthathu Entu", "stanzas": [[["எல்லாமே முடிந்தது என்று", "ellaamae Mutinthathu Entu"], ["என்னைப்பார்த்து இகழ்ந்தனர்", "ennaippaarththu Ikalnthanar"], ["இனியென்றும் எழும்புவதில்லை", "Iniyentum Elumpuvathillai"], ["என்று சொல்லி நகைத்தனர்", "Entu Solli Nakaiththanar"], ["ஆனாலும் நீங்க என்னை", "Aanaalum Neenga Ennai"], ["கண்டவிதம் பெரியது", "Kanndavitham Periyathu"], ["என் உயர்வின் பெருமையெல்லாம்", "En Uyarvin Perumaiyellaam"], ["உம் ஒருவருக்கு உரியதே", "Um Oruvarukku Uriyathae"], ["நீர் மட்டும் பெருகனும்", "Neer Mattum Perukanum"], ["நீர் மட்டும் இயேசுவே", "Neer Mattum Yesuvae"]], [["உடைக்கப்பட்ட பாத்திரமானேன்", "utaikkappatta Paaththiramaanaen"], ["உபயோக மற்று இருந்தேன்", "Upayoka Mattu Irunthaen"], ["ஒன்றுக்கும் உதவுவதில்லை", "Ontukkum Uthavuvathillai"], ["என்று சொல்லி ஒதுக்கப்பட்டேன்", "Entu Solli Othukkappattaen"], ["குயவனே உந்தன் கரம்", "Kuyavanae Unthan Karam"], ["மீண்டும் எனை வனைந்தது", "Meenndum Enai Vanainthathu"], ["விழுந்து போன இடங்களில்யெல்லாம்", "Vilunthu Pona Idangalilyellaam"], ["என் தலையை உயர்த்தியதே", "En Thalaiyai Uyarththiyathae"]]]}, {"title": "இதுவரை நடத்தி குறைவின்றி காத்து", "transliteration": "Ithuvarai Nadaththi Kuraivinti Kaaththu", "stanzas": [[["இதுவரை நடத்தி குறைவின்றி காத்து", "ithuvarai Nadaththi Kuraivinti Kaaththu"], ["மகிழ்வை தந்தீரே நன்றி ஐயா", "makilvai Thantheerae Nanti Aiyaa"], ["தண்ணீரை கடந்தேன் சோதனை ஜெயித்தேன்", "thannnneerai Kadanthaen Sothanai Jeyiththaen"], ["மதிலை தாண்டினேன் உம் பலத்தால்", "Mathilai Thaanntinaen Um Palaththaal"]], [["நன்றி நன்றி ஐயா", "nanti Nanti Aiyaa"], ["உம்மை உயர்த்திடுவேன்", "Ummai Uyarththiduvaen"]], [["ஆபத்து நாளில் அனுகுலமான", "aapaththu Naalil Anukulamaana"], ["துணையுமானீரே நன்றி ஐயா", "Thunnaiyumaaneerae Nanti Aiyaa"], ["உம் கரம் நீட்டி ஆசீர்வதித்து", "um Karam Neetti Aaseervathiththu"], ["எல்லையை பெருக்கினீர் நன்றி ஐயா", "Ellaiyai Perukkineer Nanti Aiyaa"]], [["அபிஷேகம் தந்து வரங்களை ஈந்து", "apishaekam Thanthu Varangalai Eenthu"], ["பயண்படச் செய்தீரே நன்றி ஐயா", "Payannpadach Seytheerae Nanti Aiyaa"], ["கிருபைகள் தந்து ஊழியம் தந்து", "kirupaikal Thanthu Ooliyam Thanthu"], ["உயர்த்தி வைத்தீரே நன்றி ஐயா", "Uyarththi Vaiththeerae Nanti Aiyaa"]]]}];
+let songs = loadSongs();
+let currentSong = null, slideIndex = 0, roman = false, projectionRoman = false, blank = false;
 
-function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function render(){
- const q=(document.getElementById('search').value||'').toLowerCase().trim();
- const filtered=songs.filter(s=>(s.title+' '+s.roman+' '+s.ta+' '+s.ro).toLowerCase().includes(q));
- document.getElementById('list').innerHTML=filtered.length?filtered.map((s,i)=>`
-  <article class="song">
-   <h2 class="title">${esc(s.title)}</h2>
-   <div class="roman">${esc(s.roman)}</div>
-   <div class="lyrics">${s.ta.split('\n').map(x=>x?'<div class="line">'+esc(x)+'</div>':'<div class="spacer"></div>').join('')}</div>
-   <div class="lyrics">${s.ro.split('\n').map(x=>x?'<div class="line">'+esc(x)+'</div>':'<div class="spacer"></div>').join('')}</div>
-  </article>`).join(''):'<div class="empty">No songs found.</div>';
+function loadSongs(){
+ try{const x=JSON.parse(localStorage.getItem('hmc_songs')); if(Array.isArray(x)&&x.length)return x}catch(e){}
+ return defaultSongs;
 }
-function toggleSearch(){
- const e=document.getElementById('search');
- e.classList.toggle('hidden');
- if(!e.classList.contains('hidden')){e.focus();window.scrollTo({top:0,behavior:'smooth'})}
+function saveSongs(){localStorage.setItem('hmc_songs',JSON.stringify(songs));}
+function renderList(q=''){
+ const term=q.trim().toLowerCase();
+ const filtered=songs.filter(s=>(s.title+' '+s.transliteration+' '+s.stanzas.flat(1).flat(1).join(' ')).toLowerCase().includes(term));
+ document.getElementById('count').textContent=`${filtered.length} song${filtered.length!==1?'s':''}`;
+ document.getElementById('list').innerHTML=filtered.map((s,i)=>{
+   const idx=songs.indexOf(s);
+   return `<article class="card" onclick="openSong(${idx})"><div class="num">${idx+1}</div><div class="title">${esc(s.title)}</div><div class="roman">${esc(s.transliteration||'')}</div><div class="open">Open lyrics →</div></article>`;
+ }).join('');
 }
-render();
+function openSong(i){
+ currentSong=songs[i]; roman=false;
+ document.getElementById('home').style.display='none'; document.getElementById('reader').style.display='block';
+ document.getElementById('rtitle').textContent=currentSong.title; document.getElementById('rsub').textContent=currentSong.transliteration||'';
+ renderLyrics();
+ window.scrollTo(0,0);
+}
+function goHome(){document.getElementById('reader').style.display='none';document.getElementById('home').style.display='block';}
+function renderLyrics(){
+ document.getElementById('lyrics').innerHTML=currentSong.stanzas.map((st,i)=>`<div class="stanza">
+ ${st.map(pair=>`<div class="line-ta">${esc(pair[0])}</div><div class="line-en ${roman?'':'hidden'}">${esc(pair[1]||'')}</div>`).join('')}
+ </div>`).join('');
+}
+function toggleRoman(){roman=!roman;renderLyrics()}
+function startProjection(){
+ if(!currentSong)return;
+ slideIndex=0; blank=false; projectionRoman=false;
+ document.getElementById('projection').classList.add('show'); renderProjection();
+ document.body.style.overflow='hidden';
+}
+function exitProjection(){document.getElementById('projection').classList.remove('show');document.body.style.overflow='';}
+function renderProjection(){
+ document.getElementById('ptitle').textContent=currentSong.title;
+ document.getElementById('pcount').textContent=`${slideIndex+1} / ${currentSong.stanzas.length}`;
+ if(blank){document.getElementById('slideText').innerHTML='';return}
+ const st=currentSong.stanzas[slideIndex];
+ const ta=st.map(x=>esc(x[0])).join('\\n');
+ const en=projectionRoman?`<span class="en">${st.map(x=>esc(x[1]||'')).join('<br>')}</span>`:'';
+ document.getElementById('slideText').innerHTML=ta+en;
+}
+function nextSlide(){if(!currentSong)return;slideIndex=Math.min(currentSong.stanzas.length-1,slideIndex+1);blank=false;renderProjection()}
+function prevSlide(){if(!currentSong)return;slideIndex=Math.max(0,slideIndex-1);blank=false;renderProjection()}
+function blankScreen(){blank=!blank;renderProjection()}
+function toggleProjectionRoman(){projectionRoman=!projectionRoman;renderProjection()}
+function tryFullscreen(){const el=document.getElementById('projection'); if(el.requestFullscreen)el.requestFullscreen().catch(()=>{}); else toast('Use your browser Fullscreen option.')}
+function toggleAdmin(){document.getElementById('adminbox').classList.toggle('hidden')}
+function exportSongs(){
+ const blob=new Blob([JSON.stringify(songs,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='songs.json';a.click();URL.revokeObjectURL(a.href);
+}
+document.getElementById('file').addEventListener('change',e=>{
+ const f=e.target.files[0]; if(!f)return; const r=new FileReader();
+ r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x))throw 0;songs=x;saveSongs();renderList(document.getElementById('search').value);toast('Songs imported successfully')}catch(err){toast('Invalid songs.json')}};r.readAsText(f);
+});
+function resetSongs(){songs=defaultSongs;saveSongs();renderList();toast('Sample songs restored')}
+document.getElementById('search').addEventListener('input',e=>renderList(e.target.value));
+document.addEventListener('keydown',e=>{
+ if(!document.getElementById('projection').classList.contains('show'))return;
+ if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextSlide()}
+ if(e.key==='ArrowLeft'){e.preventDefault();prevSlide()}
+ if(e.key.toLowerCase()==='b'){blankScreen()}
+ if(e.key==='Escape')exitProjection();
+});
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function toast(t){const x=document.getElementById('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',1800)}
+renderList();
 </script>
-</body>
-</html>
+</body></html>
