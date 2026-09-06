@@ -29,44 +29,56 @@ function renderAll(){renderPreview();document.getElementById('page').textContent
 function renderPreview(){const s=songs[current];if(!s){return}document.getElementById('previewText').innerHTML=makeSlideHTML(s,slide);document.getElementById('previewInfo').textContent=s.stanzas?.length?`Slide ${slide+1} of ${s.stanzas.length} • Ready for output`:'No lyrics loaded'}
 function makeSlideHTML(s,i){if(blank||!s.stanzas?.length)return '';const st=s.stanzas[Math.max(0,Math.min(i,s.stanzas.length-1))];const ta=st.map(p=>esc(p[0])).join('\n');const en=projectionRoman?`<span class="screenen">${st.map(p=>esc(p[1]||'')).join('<br>')}</span>`:'';return ta+en}
 function updateProjection(){if(current<0)return;const s=songs[current];document.getElementById('pTitle').textContent=s.title;document.getElementById('pCount').textContent=s.stanzas?.length?`${slide+1} / ${s.stanzas.length}`:'—';document.getElementById('pText').innerHTML=makeSlideHTML(s,slide);renderPreview();document.getElementById('page').textContent=s.stanzas?.length?`${slide+1} / ${s.stanzas.length}`:'—';syncOutput()}
-async function startProjection(){if(current<0){toast('Select a song first');return}blank=false;projectionRoman=false;await openOutputWindow();syncOutput()}
+async function startProjection(){if(current<0){toast('Select a song first');return}blank=false;projectionRoman=false;await openOutputWindow(true);syncOutput()}
 function exitProjection(){if(outputWin&&!outputWin.closed){outputWin.close();outputWin=null}toast('Projection output closed')} 
 function nextSlide(){const s=songs[current];if(!s?.stanzas?.length)return;slide=Math.min(s.stanzas.length-1,slide+1);blank=false;renderAll();updateProjection()}
 function prevSlide(){const s=songs[current];if(!s?.stanzas?.length)return;slide=Math.max(0,slide-1);blank=false;renderAll();updateProjection()}
-function toggleBlank(){blank=!blank;updateProjection();toast(blank?'Projector blanked':'Projector restored')};function blankProjection(){blank=true;if(current>=0){openOutputWindow();updateProjection();toast('Projector blanked')}}
+function toggleBlank(){blank=!blank;updateProjection();toast(blank?'Projector blanked':'Projector restored')};function blankProjection(){blank=true;if(current>=0){openOutputWindow(true);updateProjection();toast('Projector blanked')}}
 function toggleProjectionRoman(){projectionRoman=!projectionRoman;updateProjection()};function toggleRomanReader(){readerRoman=!readerRoman;renderEditor()}
 function tryFullscreen(){if(outputWin&&!outputWin.closed){try{outputWin.focus();if(outputWin.document.documentElement.requestFullscreen)outputWin.document.documentElement.requestFullscreen().catch(()=>{});}catch(e){}}else{toast('Open Show Output first')}}
-async function openOutputWindow(){
+async function openOutputWindow(preferSecondScreen=false){
   if(outputWin&&!outputWin.closed){outputWin.focus();return true}
+  let left=0,top=0,width=1280,height=720,targetName='display';
   try{
-    let left=0,top=0,width=1280,height=720;
-    // If the browser supports the Window Management API, automatically place
-    // the projector window on the non-primary/second display.
-    if('getScreenDetails' in window){
+    // Chrome/Edge Window Management API: ask for screen details from the user's
+    // click, then place the projection popup directly on the non-primary screen.
+    if(preferSecondScreen && 'getScreenDetails' in window){
       try{
         const details=await window.getScreenDetails();
         const screens=details.screens||[];
-        const target=screens.find(sc=>!sc.isPrimary)||screens[0];
+        const target=screens.find(sc=>!sc.isPrimary) || (screens.length>1?screens[1]:null);
         if(target){
           left=target.availLeft; top=target.availTop;
           width=target.availWidth; height=target.availHeight;
+          targetName=target.label||'second screen';
+        } else if(screens.length===1){
+          targetName='laptop screen';
         }
       }catch(e){
-        // Permission denied or API unavailable: use normal popup fallback.
+        // Permission/API unavailable. Continue with a normal popup; the user can
+        // still move it to the TV. Do not break projection because of this.
       }
     }
-    outputWin=window.open('', 'HolyMountProjection', `width=${Math.max(800,width)},height=${Math.max(450,height)},left=${left},top=${top}`);
+    const features=`popup=yes,width=${Math.max(800,width)},height=${Math.max(450,height)},left=${left},top=${top},resizable=yes,scrollbars=no,toolbar=no,menubar=no,location=no,status=no`;
+    outputWin=window.open('', 'HolyMountProjection', features);
     if(!outputWin){toast('Popup blocked — allow popups for this site.');return false}
     outputWin.document.open();
     outputWin.document.write(`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Holy Mount Church — Projector Output</title><style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;700&display=swap');*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#000;color:#fff;font-family:'Noto Sans Tamil',Arial,sans-serif;overflow:hidden}.out{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6vh 7vw}.txt{font-size:clamp(30px,4.1vw,78px);max-width:90vw;font-weight:700;line-height:1.55;white-space:pre-line}.en{display:block;color:#888;font-size:.34em;line-height:1.45;font-weight:400;margin-top:18px}</style></head><body><div class="out"><div id="txt" class="txt"></div></div></body></html>`);
     outputWin.document.close();
     outputWin.onbeforeunload=()=>{outputWin=null};
+    // Move/size the popup on the selected display. Browsers may ignore these
+    // calls when window-management permission is unavailable.
     try{outputWin.moveTo(left,top);outputWin.resizeTo(Math.max(800,width),Math.max(450,height));}catch(e){}
     outputWin.focus();
-    // On browsers supporting multi-screen placement, request fullscreen in the
-    // newly opened output window. The user may still need one click if blocked.
-    try{if(outputWin.document.documentElement.requestFullscreen){await outputWin.document.documentElement.requestFullscreen();}}catch(e){}
-    toast('Output opened on the second screen when supported');
+    // Fullscreen is attempted while this function is still running from the
+    // Show Output click. If the browser blocks it, the window still opens on
+    // Display 2 and contains only the lyrics.
+    try{
+      if(outputWin.document.documentElement.requestFullscreen){
+        await outputWin.document.documentElement.requestFullscreen();
+      }
+    }catch(e){}
+    toast(targetName==='second screen'?'Projector opened on Screen 2':'Projector output opened');
     return true;
   }catch(e){toast('Could not open output window');return false}
 }
@@ -76,7 +88,7 @@ function saveEditedSong(){const title=document.getElementById('editTitle').value
 function deleteSong(){if(current<0)return;if(!confirm('Delete this song from this device?'))return;songs.splice(current,1);save();current=Math.min(current,songs.length-1);renderList();if(current>=0)selectSong(current);else{document.getElementById('editor').innerHTML='<div class="empty">No song selected.</div>';document.getElementById('previewText').innerHTML='Select a song'}toast('Song deleted')}
 function closeModal(){document.getElementById('modal').classList.remove('show')};function openSettings(){document.getElementById('settings').classList.add('show')};function closeSettings(){document.getElementById('settings').classList.remove('show')};function applyFontSize(){document.querySelector('.ptext').style.fontSize=document.getElementById('fontSize').value+'vw'}
 document.getElementById('search').addEventListener('input',renderList);document.addEventListener('keydown',e=>{if(document.getElementById('modal').classList.contains('show')||document.getElementById('settings').classList.contains('show'))return;if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextSlide()}else if(e.key==='ArrowLeft'){e.preventDefault();prevSlide()}else if(e.key.toLowerCase()==='b'){toggleBlank()}else if(e.key==='Escape')exitProjection()});
-function showWorkspace(name){document.querySelectorAll('.workspaceTab').forEach((b,i)=>b.classList.toggle('active',['verses','lyrics','schedule','media','screens'][i]===name));if(name==='screens'){toast('Screen 2 is the projector output. Click Show Output to open it.')}else if(name==='schedule'){toast('Schedule panel coming next')}else if(name==='media'){toast('Media panel coming next')}else if(name==='verses'){toast('Use Songs for worship lyrics for now')}}
+function showWorkspace(name){document.querySelectorAll('.workspaceTab').forEach((b,i)=>b.classList.toggle('active',['verses','lyrics','schedule','media','screens'][i]===name));if(name==='screens'){toast('Keep Windows on Extend. Show Output will target Screen 2 when supported.')}else if(name==='schedule'){toast('Schedule panel coming next')}else if(name==='media'){toast('Media panel coming next')}else if(name==='verses'){toast('Use Songs for worship lyrics for now')}}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function toast(t){const x=document.getElementById('toast');x.textContent=t;x.style.display='block';clearTimeout(window.tt);window.tt=setTimeout(()=>x.style.display='none',1800)}
 init();
 </script></body></html>
