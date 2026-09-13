@@ -6,7 +6,7 @@
 <div class="app"><header><div class="brand">✝ Holy Mount Church<small>WORSHIP LYRICS</small></div><input id="search" class="search" placeholder="Search songs…"><button class="btn" onclick="openOutput()">📺 Show Output</button></header>
 <aside class="side"><div class="sidehead"><h3>Songs <span id="songCount"></span></h3><button class="btn addbtn" onclick="openSongForm()">＋ Add Song</button></div><div id="songList"></div></aside>
 <main><div class="toolbar"><div><div id="songTitle" class="title">Select a song</div><div id="songRoman" style="color:#89919e;font-size:12px"></div></div><button class="btn" onclick="toggleRoman()" id="romanBtn">தமிழ் + English</button><button class="btn danger" onclick="deleteCurrentSong()">Delete</button><button class="btn primary" onclick="openOutput()">▶ Show Output</button></div>
-<div class="content"><section id="slides" class="slides"></section><aside class="preview"><h3>TV PREVIEW</h3><div class="screen"><div id="preview"></div></div><div class="status" id="status">TV output not opened</div></aside></div>
+<div class="content"><section id="slides" class="slides"></section><aside class="preview"><h3>TV PREVIEW</h3><div class="screen"><div id="preview"></div></div><div class="status" id="status">TV output not opened<br><span style="color:#5f6875">Show Output will try to place the TV window on your second screen.</span></div></aside></div>
 <div class="bottom"><button class="btn big" onclick="prev()">◀ Previous</button><div id="count" class="count">—</div><button class="btn big primary" onclick="next()">Next ▶</button><button class="btn big" onclick="blank()">■ Blank</button></div></main></div><div class="hint">Keyboard: ← Previous • → Next • B Blank</div>
 <div id="songModal" class="modal hidden"><div class="box"><h2>Add a song</h2><p>Enter one line per lyric. Use <b>Tamil | Romanized Tamil</b>. Leave one blank line between slides.</p><div class="field"><label>Song title (Tamil)</label><input id="newTitle" placeholder="உதா: என் இயேசுவே"></div><div class="field"><label>Romanized title</label><input id="newRoman" placeholder="En Yesuvae"></div><div class="field"><label>Lyrics</label><textarea id="newLyrics" placeholder="தமிழ் வரி 1 | Romanized line 1
 தமிழ் வரி 2 | Romanized line 2
@@ -29,7 +29,37 @@ function go(i){slide=i;blanked=false;render();send()} function next(){const n=so
 function toggleRoman(){showRoman=!showRoman;document.getElementById('romanBtn').textContent=showRoman?'தமிழ் + English':'தமிழ் only';render();send()}
 function state(){return {type:'state',song:current,slide,blanked,showRoman,songs,stamp:Date.now()}}
 function send(){const d=state();try{localStorage.setItem(STATE_KEY,JSON.stringify(d))}catch(e){}if(channel)channel.postMessage(d);if(output&&!output.closed){try{output.postMessage(d,location.origin)}catch(e){}};const st=document.getElementById('status');if(st)st.textContent=output&&!output.closed?'TV output connected':'TV output not opened'}
-function openOutput(){if(output&&!output.closed){output.focus();send();return};output=window.open(location.href+'#output','HolyMountTV_'+Date.now(),'popup=yes,width=1280,height=720');if(!output){alert('Please allow popups for this site.');return};setTimeout(send,250);setTimeout(send,900)}
+async function positionOutput(){
+  if(!output||output.closed)return;
+  try{
+    if(typeof window.getScreenDetails==='function'){
+      const details=await window.getScreenDetails();
+      const screens=details.screens||[];
+      const primary=details.currentScreen;
+      const target=screens.find(x=>x!==primary)||screens.find(x=>x!==primary)||primary;
+      if(target){
+        output.moveTo(Math.round(target.availLeft),Math.round(target.availTop));
+        output.resizeTo(Math.round(target.availWidth),Math.round(target.availHeight));
+        try{output.focus()}catch(e){}
+        setTimeout(()=>{try{output.document.documentElement.requestFullscreen()}catch(e){}},300);
+        return true;
+      }
+    }
+  }catch(e){/* permission/API unavailable; use fallback below */}
+  try{
+    const x=Math.max(0,screen.availLeft+screen.availWidth+10);
+    output.moveTo(x,screen.availTop||0);
+    output.resizeTo(Math.max(800,screen.availWidth),Math.max(600,screen.availHeight));
+    output.focus();
+    return true;
+  }catch(e){return false}
+}
+async function openOutput(){
+  if(output&&!output.closed){send();await positionOutput();return}
+  output=window.open(location.href+'#output','HolyMountTV_'+Date.now(),'popup=yes,width=1280,height=720');
+  if(!output){alert('Please allow popups for this site.');return}
+  setTimeout(send,250);setTimeout(send,900);setTimeout(()=>positionOutput(),450);
+}
 function isOutput(){return location.hash==='#output'}
 function outputPage(){loadSavedSongs();document.body.innerHTML=`<div style="width:100vw;height:100vh;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:6vh 7vw"><div id="out" style="font-family:'Noto Sans Tamil',Arial,sans-serif;font-size:clamp(30px,4.2vw,82px);font-weight:700;line-height:1.5;max-width:92vw"></div></div>`;document.title='Holy Mount Church — TV Output';if(channel)channel.onmessage=e=>apply(e.data);window.addEventListener('message',e=>apply(e.data));function poll(){try{const saved=localStorage.getItem(SONG_KEY);if(saved){const ss=JSON.parse(saved);if(Array.isArray(ss)&&ss.length)songs=ss}const raw=localStorage.getItem(STATE_KEY);if(raw)apply(JSON.parse(raw))}catch(e){}}poll();setInterval(poll,200);if(channel)channel.postMessage({type:'request'});setTimeout(()=>{if(channel)channel.postMessage({type:'request'});poll()},300)}
 function apply(d){if(!d||d.type!=='state')return;if(Array.isArray(d.songs)&&d.songs.length)songs=d.songs;else loadSavedSongs();showRoman=d.showRoman!==false;const s=songs[d.song];const out=document.getElementById('out');if(!out||!s)return;if(d.blanked){out.innerHTML='';return};out.innerHTML=slideHTML(s,d.slide)}
