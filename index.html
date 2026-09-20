@@ -47,26 +47,28 @@ async function positionOutput(){
         if(target){
           output.moveTo(target.availLeft,target.availTop);
           output.resizeTo(Math.round(target.availWidth),Math.round(target.availHeight));
-          try{output.focus()}catch(e){}
+          try{output.blur()}catch(e){}
+          try{window.focus()}catch(e){}
           return true;
         }
       }catch(e){}
     }
-    try{output.focus()}catch(e){}
+    try{output.blur()}catch(e){}
+    try{window.focus()}catch(e){}
     return false;
   }catch(e){return false}
 }
 function openOutput(){
   const url=location.href.split('#')[0]+'#output';
-  if(output&&!output.closed){send();positionOutput();try{output.focus()}catch(e){};return}
+  if(output&&!output.closed){send();positionOutput();setTimeout(()=>{try{window.focus()}catch(e){}},100);return}
   output=window.open(url,'HolyMountTV','width=1280,height=720,resizable=yes,scrollbars=no');
   if(!output){
     const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>alert('Chrome blocked the TV Output window. Please allow pop-ups for this site, then press Show Output again.'),300);
     return;
   }
-  setTimeout(()=>{send();positionOutput()},300);
-  setTimeout(()=>{send();positionOutput()},1000);
+  setTimeout(()=>{send();positionOutput();try{window.focus()}catch(e){}},300);
+  setTimeout(()=>{send();positionOutput();try{window.focus()}catch(e){}},1000);
 }
 function isOutput(){return location.hash==='#output'}
 function outputPage(){loadSavedSongs();const z=getStyle();document.body.innerHTML=`<div style="width:100vw;height:100vh;background:${z.bgColor};color:${z.textColor};display:flex;align-items:center;justify-content:center;text-align:${z.textAlign};padding:6vh 7vw"><div id="out" style="font-family:${z.fontFamily};font-size:${z.fontSize}px;font-weight:${z.boldText?'700':'400'};line-height:${z.lineHeight};max-width:92vw"></div></div>`;document.title='Holy Mount Church — TV Output';if(channel)channel.onmessage=e=>apply(e.data);window.addEventListener('message',e=>apply(e.data));function poll(){try{const saved=localStorage.getItem(SONG_KEY);if(saved){const ss=JSON.parse(saved);if(Array.isArray(ss)&&ss.length)songs=ss}const raw=localStorage.getItem(STATE_KEY);if(raw)apply(JSON.parse(raw))}catch(e){}}poll();setInterval(poll,200);if(channel)channel.postMessage({type:'request'});setTimeout(()=>{if(channel)channel.postMessage({type:'request'});poll()},300)}
